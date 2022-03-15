@@ -12,6 +12,6 @@ class Niveau extends Model
     protected $fillable = [
         'titre',
         'description',
-        'secteur_id'
+        'theme_id'
     ];
 }
