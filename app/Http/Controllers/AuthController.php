@@ -112,5 +112,44 @@ class AuthController extends Controller
     }
 
 
+    //Logout methode
+    public function logout (Request $request)
+    {
+        auth()->user()->tokens()->delete();
+        return[
+            'message'=>'Logged out'
+        ];
+    }
+
+    //Login  methode
+
+    public function login (Request $request)
+    {
+        $fields= $request->validate([
+            'email'=>'required|string',
+            'passwoed'=>'required|string'
+        ]);
+
+        //check the email
+        $user = User::where('email',$fields['email'])->first();
+        if(!$user || !Hash::check($fields['password'],$user->password))
+        {
+            return response([
+                'message'=>'bad credits'
+            ],401);
+        }
+
+        $token = $user->createToken('sms2iapptoken')->plainTextToken;
+
+        $response = [
+            'user'=>$user,
+            'token'=>$token
+        ];
+
+        return response
+        (
+            $response, 201
+        );
+    }
 
 }
