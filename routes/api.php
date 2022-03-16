@@ -3,9 +3,12 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CycleFormationController;
 use App\Http\Controllers\DomaineController;
+use App\Http\Controllers\InscriptionController;
+use App\Http\Controllers\InscriptionIndusController;
 use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\SecteurController;
 use App\Http\Controllers\ThemeController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,15 +26,19 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::post('/secteurs',[SecteurController::class,'index']);
+    Route::get('/secteurs',[SecteurController::class,'index']);
 
-    Route::post('/domaines',[DomaineController::class,'index']);
+    Route::get('/domaines',[DomaineController::class,'index']);
 
-    Route::post('/themes',[ThemeController::class,'index']);
+    Route::get('/themes',[ThemeController::class,'index']);
 
-    Route::post('/niveaux',[NiveauController::class,'index']);
+    Route::get('/niveaux',[NiveauController::class,'index']);
 
-    Route::post('/cycle_formation',[CycleFormationController::class,'index']);
+    Route::get('/cycle_formations',[CycleFormationController::class,'index']);
+
+    Route::get('/inscriptions',[InscriptionController::class,'index']);
+
+    Route::get('/inscriptions',[InscriptionIndusController::class,'index']);
 
 //Private api routes
 Route::group(['middleware' => ['auth:sanctum']],function (){
@@ -64,11 +71,23 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::delete('niveaux/{id}',[NiveauController::class, 'destroy']);
 
-    Route::post('/cycle_formation',[CycleFormationController::class,'store']);
+    Route::post('/cycle_formations',[CycleFormationController::class,'store']);
 
-    Route::post('/cycle_formation/{id}',[CycleFormationController::class,'update']);
+    Route::post('/cycle_formations/{id}',[CycleFormationController::class,'update']);
 
-    Route::delete('cycle_formation/{id}',[CycleFormationController::class, 'destroy']);
+    Route::delete('cycle_formations/{id}',[CycleFormationController::class, 'destroy']);
+
+    Route::post('/inscriptions',[InscriptionController::class,'store']);
+
+    Route::post('/inscriptions/{id}',[InscriptionController::class,'update']);
+
+    Route::delete('inscriptions/{id}',[InscriptionController::class, 'destroy']);
+
+    Route::post('/inscriptionsindus',[InscriptionIndusController::class,'store']);
+
+    Route::post('/inscriptionsindus/{id}',[InscriptionIndusController::class,'update']);
+
+    Route::delete('inscriptionsindus/{id}',[InscriptionIndusController::class, 'destroy']);
 
 
 });
