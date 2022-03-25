@@ -65,7 +65,7 @@ class AuthController extends Controller
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'formateur',
-            'password' => bcrypt($fields['password']),
+            'password' => bcryp($fields['password']),
         ]);
 
         $token = $user->createToken('sms2i_client_auth_token')->plainTextToken;

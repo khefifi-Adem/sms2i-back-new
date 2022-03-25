@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CardAcceuilController;
 use App\Http\Controllers\CycleFormationController;
 use App\Http\Controllers\DomaineController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\InscriptionIndusController;
 use App\Http\Controllers\NiveauController;
+use App\Http\Controllers\NosPartenersController;
 use App\Http\Controllers\SecteurController;
 use App\Http\Controllers\ThemeController;
 
@@ -39,6 +41,15 @@ use Illuminate\Support\Facades\Route;
     Route::get('/inscriptions',[InscriptionController::class,'index']);
 
     Route::get('/inscriptions',[InscriptionIndusController::class,'index']);
+
+    Route::get('/card-acceuils',[CardAcceuilController::class,'index']);
+
+    Route::post('/card-acceuils',[CardAcceuilController::class,'store']);
+
+    Route::get('/nos_parteners',[NosPartenersController::class,'index']);
+
+    Route::post('/nos_parteners',[NosPartenersController::class,'store']);
+
 
 //Private api routes
 Route::group(['middleware' => ['auth:sanctum']],function (){
@@ -88,6 +99,15 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/inscriptionsindus/{id}',[InscriptionIndusController::class,'update']);
 
     Route::delete('inscriptionsindus/{id}',[InscriptionIndusController::class, 'destroy']);
+
+
+    Route::post('/card-acceuils/{id}',[CardAcceuilController::class,'update']);
+
+    Route::delete('/card-acceuils/{id}',[CardAcceuilController::class, 'destroy']);
+
+    Route::post('/nos_parteners/{id}',[NosPartenersController::class,'update']);
+
+    Route::delete('/nos_parteners/{id}',[NosPartenersController::class, 'destroy']);
 
 
 });
