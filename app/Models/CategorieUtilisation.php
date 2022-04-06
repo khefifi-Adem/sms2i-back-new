@@ -17,7 +17,7 @@ class CategorieUtilisation extends Model
     ];
 
     public function article(){
-        return $this->hasMany('articles');
+        return $this->hasMany(Article::class,'id_categorie_utilisation','id');
     }
 
 

@@ -18,11 +18,11 @@ class Article extends Model
         'id_categorie_utilisation',
     ];
 
-    protected $with = ['marques'];
-
-
-    public function categorie()
-    {
-        return $this->belongsTo(CategorieUtilisation::class, 'id_categorie_utilisation','id' );
-    }
+//    protected $with = ['categorie_utilisations'];
+//
+//
+//    public function marque()
+//    {
+//        return $this->belongsTo(CategorieUtilisation::class, 'id_categorie_utilisation','id' );
+//    }
 }
