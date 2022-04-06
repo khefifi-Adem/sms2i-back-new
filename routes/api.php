@@ -55,9 +55,9 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/nos_parteners',[NosPartenersController::class,'store']);
 
-    Route::get('/categorie_utilisations',[CategorieUtilisationController::class,'index']);
+    Route::get('/categorie_utilisation',[CategorieUtilisationController::class,'index']);
 
-    Route::post('/categorie_utilisations',[CategorieUtilisationController::class,'store']);
+    Route::post('/categorie_utilisation',[CategorieUtilisationController::class,'store']);
 
     Route::get('/marques',[MarqueController::class,'index']);
 
@@ -128,7 +128,6 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/inscriptionsindus/{id}',[InscriptionIndusController::class,'update']);
 
     Route::delete('inscriptionsindus/{id}',[InscriptionIndusController::class, 'destroy']);
-
 
     Route::post('/card-acceuils/{id}',[CardAcceuilController::class,'update']);
 

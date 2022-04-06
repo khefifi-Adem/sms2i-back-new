@@ -9,7 +9,12 @@ class CategorieUtilisationController extends Controller
 {
     public function index()
     {
-        return CategorieUtilisation::all();
+
+        $categorie = CategorieUtilisation::with('article')->get();
+        return response()->json([
+            'status' => 200,
+            'categories' => $categorie
+        ]);
     }
 
     public function store(Request $request)

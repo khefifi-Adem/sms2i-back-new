@@ -16,5 +16,9 @@ class CategorieUtilisation extends Model
         'image_path',
     ];
 
+    public function article(){
+        return $this->hasMany('articles');
+    }
+
 
 }
