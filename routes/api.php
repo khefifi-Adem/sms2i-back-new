@@ -1,17 +1,22 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CardAcceuilController;
+use App\Http\Controllers\CategorieUtilisationController;
 use App\Http\Controllers\CycleFormationController;
 use App\Http\Controllers\DomaineController;
+use App\Http\Controllers\DomaineIndusController;
+use App\Http\Controllers\GroupeSms2iController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\InscriptionIndusController;
+use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\NosPartenersController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecteurController;
 use App\Http\Controllers\ThemeController;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +54,30 @@ use Illuminate\Support\Facades\Route;
     Route::get('/nos_parteners',[NosPartenersController::class,'index']);
 
     Route::post('/nos_parteners',[NosPartenersController::class,'store']);
+
+    Route::get('/categorie_utilisations',[CategorieUtilisationController::class,'index']);
+
+    Route::post('/categorie_utilisations',[CategorieUtilisationController::class,'store']);
+
+    Route::get('/marques',[MarqueController::class,'index']);
+
+    Route::post('/marques',[MarqueController::class,'store']);
+
+    Route::get('/articles',[ArticleController::class,'index']);
+
+    Route::post('/articles',[ArticleController::class,'store']);
+
+    Route::get('/domaine_indus',[DomaineIndusController::class,'index']);
+
+    Route::post('/domaine_indus',[DomaineIndusController::class,'store']);
+
+    Route::get('/groupe_sms2i',[GroupeSms2iController::class,'index']);
+
+    Route::post('/groupe_sms2i',[GroupeSms2iController::class,'store']);
+
+    Route::get('/projects',[ProjectController::class,'index']);
+
+    Route::post('/projects',[ProjectController::class,'store']);
 
 
 //Private api routes
@@ -109,5 +138,27 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::delete('/nos_parteners/{id}',[NosPartenersController::class, 'destroy']);
 
+    Route::post('/categorie_utilisation/{id}',[CategorieUtilisationController::class,'update']);
 
+    Route::delete('/categorie_utilisation/{id}',[CategorieUtilisationController::class, 'destroy']);
+
+    Route::post('/marques/{id}',[MarqueController::class,'update']);
+
+    Route::delete('/marques/{id}',[MarqueController::class,'destroy']);
+
+    Route::post('/articles/{id}',[ArticleController::class,'update']);
+
+    Route::delete('/articles/{id}',[ArticleController::class,'destroy']);
+
+    Route::post('/domaine_indus/{id}',[DomaineIndusController::class,'update']);
+
+    Route::delete('/domaine_indus/{id}',[DomaineIndusController::class,'destroy']);
+
+    Route::post('/groupe_sms2i/{id}',[GroupeSms2iController::class,'update']);
+
+    Route::delete('/groupe_sms2i/{id}',[GroupeSms2iController::class,'destroy']);
+
+    Route::post('/projects/{id}',[ProjectController::class,'update']);
+
+    Route::delete('/projects/{id}',[ProjectController::class,'destroy']);
 });

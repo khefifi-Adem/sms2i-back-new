@@ -9,7 +9,11 @@ class CardAcceuilController extends Controller
 {
     public function index()
     {
-        return CardAcceuil::all();
+        $cards = CardAcceuil::all();
+        return response()->json([
+            'status' => 200,
+            'cards' => $cards,
+        ]);
     }
 
     public function store(Request $request)
@@ -19,7 +23,11 @@ class CardAcceuilController extends Controller
             'card_icon' => 'required',
             'card_text' => 'required'
         ]);
-        return CardAcceuil::create($request->all());
+        CardAcceuil::create($request->all());
+        return response()->json([
+            'status'=> 200,
+            'message' => 'card created successfully'
+        ]);
     }
 
     public function show($id)
