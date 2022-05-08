@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CardAcceuilController;
+use App\Http\Controllers\CardEtapeController;
 use App\Http\Controllers\CategorieUtilisationController;
 use App\Http\Controllers\CycleFormationController;
 use App\Http\Controllers\DomaineController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\InscriptionIndusController;
 use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\NosPartenersController;
+use App\Http\Controllers\PageIntroController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecteurController;
 use App\Http\Controllers\ThemeController;
@@ -30,6 +32,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
     Route::post('/registerclient', [AuthController::class, 'registerClient']);
+
+    Route::post('/registerindusclient', [AuthController::class, 'registerIndusClient']);
 
     Route::post('/login', [AuthController::class, 'login']);
 
@@ -51,6 +55,10 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/card-acceuils',[CardAcceuilController::class,'store']);
 
+    Route::post('/card-acceuils-update/{id}',[CardAcceuilController::class,'update']);
+
+    Route::delete('/card-acceuils/{id}',[CardAcceuilController::class, 'destroy']);
+
     Route::get('/nos_parteners',[NosPartenersController::class,'index']);
 
     Route::post('/nos_parteners',[NosPartenersController::class,'store']);
@@ -62,6 +70,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/marques',[MarqueController::class,'index']);
 
     Route::post('/marques',[MarqueController::class,'store']);
+
+    Route::get('/marques/{id}',[MarqueController::class,'show']);
 
     Route::get('/articles',[ArticleController::class,'index']);
 
@@ -78,6 +88,27 @@ use Illuminate\Support\Facades\Route;
     Route::get('/projects',[ProjectController::class,'index']);
 
     Route::post('/projects',[ProjectController::class,'store']);
+
+    Route::get('/pages',[PageIntroController::class,'index']);
+
+    Route::post('/pages',[PageIntroController::class,'store']);
+
+    Route::post('/pages/{id}',[PageIntroController::class, 'update']);
+
+    Route::get('/pages/{id}',[PageIntroController::class, 'show']);
+
+    Route::delete('pages/{id}',[PageIntroController::class, 'destroy']);
+
+    Route::get('/card-services',[CardEtapeController::class,'index']);
+
+    Route::post('/card-services',[CardEtapeController::class,'store']);
+
+    Route::post('/card-services-update/{id}',[CardEtapeController::class,'update']);
+
+    Route::delete('/card-services/{id}',[CardEtapeController::class, 'destroy']);
+
+
+
 
 
 //Private api routes
@@ -129,9 +160,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::delete('inscriptionsindus/{id}',[InscriptionIndusController::class, 'destroy']);
 
-    Route::post('/card-acceuils/{id}',[CardAcceuilController::class,'update']);
 
-    Route::delete('/card-acceuils/{id}',[CardAcceuilController::class, 'destroy']);
 
     Route::post('/nos_parteners/{id}',[NosPartenersController::class,'update']);
 

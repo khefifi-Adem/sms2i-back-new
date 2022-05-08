@@ -14,4 +14,8 @@ class Secteur extends Model
         'description'
     ];
 
+    public function domaine(){
+        return $this->hasMany(Domaine::class,'secteur_id','id');
+    }
+
 }

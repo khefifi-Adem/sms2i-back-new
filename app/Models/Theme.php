@@ -14,4 +14,13 @@ class Theme extends Model
         'description',
         'domaine_id'
     ];
+
+    public function niveau(){
+        return $this->hasMany(Niveau::class,'theme_id','id');
+    }
+
+    public function domaine()
+    {
+        return $this->belongsTo(Domaine::class,'domaine_id','id');
+    }
 }

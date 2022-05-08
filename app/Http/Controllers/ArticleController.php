@@ -9,7 +9,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $article = Article::all();
+        $article = Article::with(['marque','category'])->get();
         return response()->json([
             'status'=>200,
             'articles'=>$article

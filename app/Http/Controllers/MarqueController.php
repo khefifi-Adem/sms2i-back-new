@@ -16,8 +16,6 @@ class MarqueController extends Controller
     {
         $request->validate([
             'marque' => 'required',
-            'description' => 'required',
-            'image_alt' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
@@ -29,8 +27,6 @@ class MarqueController extends Controller
             $image->move($destinationPath, $image_name);
             $marque = new Marque([
                 'marque' => $request->marque,
-                'description' => $request->description,
-                'image_alt' => $request->image_alt ,
                 'image_path' => 'uploads/marques/'.$image_name,
             ]);
             $marque->save();
@@ -43,7 +39,11 @@ class MarqueController extends Controller
 
     public function show($id)
     {
-        return Marque::find($id);
+        $marque = Marque::find($id);
+        return response()->json([
+           'status' => 200,
+           'marque' => $marque
+        ]);
     }
 
     public function update (Request $request, $id)

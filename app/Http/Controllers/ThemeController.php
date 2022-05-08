@@ -9,7 +9,11 @@ class ThemeController extends Controller
 {
     public function index()
     {
-        return Theme::all();
+        $themes = Theme::with('niveau')->get();
+        return response()->json([
+            'status'=>200,
+            'themes'=>$themes
+        ]);
     }
 
     public function store(Request $request)

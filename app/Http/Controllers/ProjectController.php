@@ -9,29 +9,29 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $project = Project::all();
+        $projects = Project::all();
         return response()->json([
             'status'=>200,
-            'project'=>$project
+            'projects'=>$projects
         ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'article' => 'required',
+            'title' => 'required',
             'description' => 'required',
-            'id_marque'=>'required',
-            'id_categorie_utilisation'=>'required',
-            'image_alt' => 'required',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'image'=>'required|image|mimes:jpeg,png,jpg|max:2048',
+            'id_soc'=>'required',
+            'id_client_indus' => 'required',
+            'id_domaine_indus' => 'required'
         ]);
 
 
-        if ($request->hasFile('image_path')) {
-            $image = $request->file('image_path');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
             $image_name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/articles/');
+            $destinationPath = base_path('uploads/projects/');
             $image->move($destinationPath, $image_name);
             $project = new Project([
                 'title' => $request->title,
@@ -54,6 +54,7 @@ class ProjectController extends Controller
                 'status' => 400,
                 'message' => 'creation totally failed'
             ]);
+
         }
     }
 

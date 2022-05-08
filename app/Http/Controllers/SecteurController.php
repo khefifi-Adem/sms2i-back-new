@@ -9,7 +9,11 @@ class SecteurController extends Controller
 {
     public function index()
     {
-        return Secteur::all();
+        $secteur = Secteur::with('domaine')->get();
+        return response()->json([
+            'status'=>200,
+            'secteurs'=>$secteur
+        ]);
     }
 
     public function store (Request $request)

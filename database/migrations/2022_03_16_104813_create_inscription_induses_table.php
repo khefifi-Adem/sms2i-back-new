@@ -20,6 +20,7 @@ class CreateInscriptionIndusesTable extends Migration
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('nb_personnel');
+            $table->string('etat');
             $table->decimal('cout');
             $table->timestamps();
         });

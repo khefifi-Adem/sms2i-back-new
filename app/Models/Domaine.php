@@ -14,4 +14,13 @@ class Domaine extends Model
         'description',
         'secteur_id'
     ];
+
+    public function theme(){
+        return $this->hasMany(Theme::class,'domaine_id','id');
+    }
+
+    public function domaine()
+    {
+        return $this->belongsTo(Secteur::class,'secteur_id','id');
+    }
 }

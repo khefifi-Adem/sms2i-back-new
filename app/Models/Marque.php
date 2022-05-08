@@ -10,8 +10,6 @@ class Marque extends Model
     use HasFactory;
     protected $fillable = [
         'marque',
-        'description',
-        'image_alt',
         'image_path',
     ];
 

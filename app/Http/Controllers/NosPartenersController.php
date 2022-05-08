@@ -9,10 +9,10 @@ class NosPartenersController extends Controller
 {
     public function index()
     {
-        $parteners = NosPartener::all();
+        $partenrs = NosPartener::all();
         return response()->json([
             'status' => 200,
-            'partners' => $parteners,
+            'partners' => $partenrs,
         ]);
     }
 

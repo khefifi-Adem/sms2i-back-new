@@ -19,6 +19,7 @@ class CreateInscriptionsTable extends Migration
             $table->foreign('id_cycle_formation')->references('id')->on('cycle_formations')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_user')->unique();;
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('etat');
             $table->decimal('cout');
             $table->timestamps();
         });

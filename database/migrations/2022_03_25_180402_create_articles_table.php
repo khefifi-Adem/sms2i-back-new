@@ -15,9 +15,9 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('article');
+            $table->string('model');
+            $table->string('edition');
             $table->string('description');
-            $table->string('image_alt');
             $table->string('image_path');
             $table->unsignedBigInteger('id_marque');
             $table->foreign('id_marque')->references('id')->on('marques')->onUpdate('cascade')->onDelete('cascade');
