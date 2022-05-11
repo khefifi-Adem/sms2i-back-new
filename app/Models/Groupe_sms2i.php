@@ -10,7 +10,8 @@ class Groupe_sms2i extends Model
     use HasFactory;
 
     protected $fillable = [
-      'nom_soc',
-      'description'
+        'nom_soc',
+        'description',
+        'image_path'
     ];
 }

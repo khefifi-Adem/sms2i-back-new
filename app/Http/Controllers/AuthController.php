@@ -101,11 +101,11 @@ class AuthController extends Controller
             'password' => bcrypt($fields['password']),
         ]);
 
-        $token = $user->createToken('sms2i_client_auth_token')->plainTextToken;
+
 
         $response = [
             'user' => $user,
-            'token' => $token
+            'message' => 'Client industriel bien creer'
         ];
 
         return response($response, 201);
@@ -150,6 +150,24 @@ class AuthController extends Controller
         (
             $response, 201
         );
+    }
+
+    public function indexClient()
+    {
+        $users = User::where('type','client')->get();
+        return response()->json([
+            'status' => 200,
+            'users' => $users,
+        ]);
+    }
+
+    public function indexClientIndus()
+    {
+        $users = User::where('type','client_indus')->get();
+        return response()->json([
+            'status' => 200,
+            'users' => $users,
+        ]);
     }
 
 }

@@ -17,6 +17,7 @@ class CreateGroupeSms2isTable extends Migration
             $table->id();
             $table->string('nom_soc');
             $table->string('description');
+            $table->string('image_path');
             $table->timestamps();
         });
     }

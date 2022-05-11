@@ -21,13 +21,36 @@ class GroupeSms2iController extends Controller
         $request->validate([
             'nom_soc' => 'required',
             'description' => 'required',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
-        Groupe_sms2i::create($request->all());
-        return response()->json([
-            'status'=> 200,
-            'message' => 'Societe created successfully'
-        ]);
+
+        if ($request->hasFile('image_path')) {
+            $image = $request->file('image_path');
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = base_path('uploads/groupesms2i/');
+            $image->move($destinationPath, $image_name);
+            $groupe = new Groupe_sms2i([
+                'nom_soc' => $request->nom_soc,
+                'description' => $request->description,
+                'image_path' => 'uploads/groupesms2i/'.$image_name ,
+            ]);
+            $groupe->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'society added perfectly'
+            ]);
+
+        }
+        else
+        {
+            return response()->json([
+                'status' => 400,
+                'message' => 'creation totally failed'
+            ]);
+
+        }
     }
+
 
     public function show($id)
     {

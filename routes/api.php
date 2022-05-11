@@ -17,6 +17,7 @@ use App\Http\Controllers\NosPartenersController;
 use App\Http\Controllers\PageIntroController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecteurController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ThemeController;
 
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
     Route::post('/registerclient', [AuthController::class, 'registerClient']);
+
+    Route::get('/clients', [AuthController::class, 'indexClient']);
+    Route::get('/clients-indus', [AuthController::class, 'indexClientIndus']);
 
     Route::post('/registerindusclient', [AuthController::class, 'registerIndusClient']);
 
@@ -106,6 +110,16 @@ use Illuminate\Support\Facades\Route;
     Route::post('/card-services-update/{id}',[CardEtapeController::class,'update']);
 
     Route::delete('/card-services/{id}',[CardEtapeController::class, 'destroy']);
+
+    Route::get('/services',[ServiceController::class,'index']);
+
+    Route::post('/services',[ServiceController::class,'store']);
+
+    Route::post('/services-update/{id}',[ServiceController::class,'update']);
+
+    Route::delete('/services/{id}',[ServiceController::class, 'destroy']);
+
+
 
 
 
