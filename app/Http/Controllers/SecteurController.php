@@ -41,4 +41,5 @@ class SecteurController extends Controller
     {
         return Secteur::destroy($id);
     }
+
 }

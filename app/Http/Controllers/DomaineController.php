@@ -42,4 +42,13 @@ class DomaineController extends Controller
     {
         return Domaine::destroy($id);
     }
+
+    public function indexDomaine($id)
+    {
+        $domaine = Domaine::where('secteur_id',$id)->get();
+        return response()->json([
+            'status' => 200,
+            'domaines' => $domaine,
+        ]);
+    }
 }

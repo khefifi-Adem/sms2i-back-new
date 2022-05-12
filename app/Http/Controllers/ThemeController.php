@@ -42,4 +42,13 @@ class ThemeController extends Controller
     {
         return Theme::destroy($id);
     }
+
+    public function indexTheme($id)
+    {
+        $themes = Theme::where('domaine_id',$id)->get();
+        return response()->json([
+            'status' => 200,
+            'themes' => $themes,
+        ]);
+    }
 }

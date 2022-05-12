@@ -38,4 +38,13 @@ class NiveauController extends Controller
     {
         return Niveau::destroy($id);
     }
+
+    public function indexNiveau($id)
+    {
+        $niveaux = Niveau::where('theme_id',$id)->get();
+        return response()->json([
+            'status' => 200,
+            'niveaux' => $niveaux,
+        ]);
+    }
 }

@@ -35,9 +35,12 @@ use Illuminate\Support\Facades\Route;
     Route::post('/registerclient', [AuthController::class, 'registerClient']);
 
     Route::get('/clients', [AuthController::class, 'indexClient']);
+
     Route::get('/clients-indus', [AuthController::class, 'indexClientIndus']);
 
     Route::post('/registerindusclient', [AuthController::class, 'registerIndusClient']);
+
+    Route::post('/registeradmin', [AuthController::class, 'registerAdmin']);
 
     Route::post('/login', [AuthController::class, 'login']);
 
@@ -118,6 +121,11 @@ use Illuminate\Support\Facades\Route;
     Route::post('/services-update/{id}',[ServiceController::class,'update']);
 
     Route::delete('/services/{id}',[ServiceController::class, 'destroy']);
+
+    Route::get('/domaines_find/{id}',[DomaineController::class, 'indexDomaine']);
+
+    Route::get('/themes_find/{id}',[ThemeController::class, 'indexTheme']);
+    Route::get('/niveaux_find/{id}',[NiveauController::class, 'indexNiveau']);
 
 
 

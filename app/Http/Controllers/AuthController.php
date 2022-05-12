@@ -112,6 +112,38 @@ class AuthController extends Controller
     }
 
 
+    public function registerAdmin (Request $request)
+    {
+        $fields = $request->validate(
+            [
+                'nom_juridique' => 'required|string',
+                'num_tel' => 'required|integer',
+                'adresse' => 'required|string',
+                'email' => 'required|string|unique:users,email',
+                'password' => 'required|string|confirmed'
+            ]
+        );
+
+        $user = User::create([
+            'nom_juridique' => $fields['nom_juridique'],
+            'num_tel' => $fields['num_tel'],
+            'adresse' => $fields['adresse'],
+            'email' => $fields['email'],
+            'type' => 'admin',
+            'password' => bcrypt($fields['password']),
+        ]);
+
+
+
+        $response = [
+            'user' => $user,
+            'message' => 'Admin bien creer'
+        ];
+
+        return response($response, 201);
+    }
+
+
     //Logout methode
     public function logout (Request $request)
     {
