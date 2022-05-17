@@ -9,7 +9,7 @@ class DomaineIndusController extends Controller
 {
     public function index()
     {
-        $domaineindus = Domaine_indus::all();
+        $domaineindus = Domaine_indus::with('projects')->get();;
         return response()->json([
             'status' => 200,
             'domaineindus' => $domaineindus,

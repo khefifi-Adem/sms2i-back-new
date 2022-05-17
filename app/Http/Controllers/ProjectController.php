@@ -9,7 +9,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with(['user','societe'])->get();;
         return response()->json([
             'status'=>200,
             'projects'=>$projects
@@ -67,7 +67,10 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
         $project->update($request->all());
-        return $project;
+        return response()->json([
+            'status' => 200,
+            "message"=> $project
+        ]) ;
     }
 
     public function destroy ($id)

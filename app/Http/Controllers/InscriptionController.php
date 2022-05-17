@@ -17,8 +17,7 @@ class InscriptionController extends Controller
     {
         $request->validate([
             'id_cycle_formation' => 'required',
-            'id_user' => 'required',
-            'cout' => 'required'
+            'id_user' => 'required'
         ]);
 
 

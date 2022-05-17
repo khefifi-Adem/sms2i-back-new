@@ -24,6 +24,7 @@ class CycleFormationController extends Controller
             'nb_places' => 'required',
             'nb_places_dispo' => 'required',
             'niveau_id' => 'required',
+
             'etat' => 'required'
         ]);
         return CycleFormation::create($request->all());

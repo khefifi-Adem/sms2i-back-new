@@ -104,7 +104,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/pages/{id}',[PageIntroController::class, 'show']);
 
-    Route::delete('pages/{id}',[PageIntroController::class, 'destroy']);
+    Route::delete('/pages/{id}',[PageIntroController::class, 'destroy']);
 
     Route::get('/card-services',[CardEtapeController::class,'index']);
 
@@ -131,6 +131,19 @@ use Illuminate\Support\Facades\Route;
 
 
 
+    Route::get('/demande_cycle',[DemandeCycle::class,'index']);
+
+    Route::post('/demande_cycle',[DemandeCycle::class,'store']);
+
+    Route::post('/demande_cycle/{id}',[DemandeCycle::class, 'update']);
+
+    Route::get('/demande_cycle/{id}',[DemandeCycle::class, 'show']);
+
+    Route::delete('/demande_cycle/{id}',[DemandeCycle::class, 'destroy']);
+
+
+
+
 
 
 //Private api routes
@@ -144,43 +157,43 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
     Route::post('/secteurs/{id}',[SecteurController::class, 'update']);
 
-    Route::delete('secteurs/{id}',[SecteurController::class, 'destroy']);
+    Route::delete('/secteurs/{id}',[SecteurController::class, 'destroy']);
 
     Route::post('/domaines',[DomaineController::class,'store']);
 
     Route::post('/domaines/{id}',[DomaineController::class, 'update']);
 
-    Route::delete('domaines/{id}',[DomaineController::class, 'destroy']);
+    Route::delete('/domaines/{id}',[DomaineController::class, 'destroy']);
 
     Route::post('/themes',[ThemeController::class,'store']);
 
     Route::post('/themes/{id}',[ThemeController::class, 'update']);
 
-    Route::delete('themes/{id}',[ThemeController::class, 'destroy']);
+    Route::delete('/themes/{id}',[ThemeController::class, 'destroy']);
 
     Route::post('/niveaux',[NiveauController::class,'store']);
 
     Route::post('/niveaux/{id}',[NiveauController::class,'update']);
 
-    Route::delete('niveaux/{id}',[NiveauController::class, 'destroy']);
+    Route::delete('/niveaux/{id}',[NiveauController::class, 'destroy']);
 
     Route::post('/cycle_formations',[CycleFormationController::class,'store']);
 
     Route::post('/cycle_formations/{id}',[CycleFormationController::class,'update']);
 
-    Route::delete('cycle_formations/{id}',[CycleFormationController::class, 'destroy']);
+    Route::delete('/cycle_formations/{id}',[CycleFormationController::class, 'destroy']);
 
     Route::post('/inscriptions',[InscriptionController::class,'store']);
 
     Route::post('/inscriptions/{id}',[InscriptionController::class,'update']);
 
-    Route::delete('inscriptions/{id}',[InscriptionController::class, 'destroy']);
+    Route::delete('/inscriptions/{id}',[InscriptionController::class, 'destroy']);
 
     Route::post('/inscriptionsindus',[InscriptionIndusController::class,'store']);
 
     Route::post('/inscriptionsindus/{id}',[InscriptionIndusController::class,'update']);
 
-    Route::delete('inscriptionsindus/{id}',[InscriptionIndusController::class, 'destroy']);
+    Route::delete('/inscriptionsindus/{id}',[InscriptionIndusController::class, 'destroy']);
 
 
 

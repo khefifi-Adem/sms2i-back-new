@@ -13,4 +13,9 @@ class Domaine_indus extends Model
         'titre',
         'description'
     ];
+
+
+    public function projects(){
+        return $this->hasMany(Project::class,'id_domaine_indus','id');
+    }
 }

@@ -20,6 +20,7 @@ class CycleFormation extends Model
         'nb_places',
         'nb_places_dispo',
         'niveau_id',
+        'cout',
         'etat'
 
     ];

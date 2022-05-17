@@ -13,6 +13,7 @@ class Niveau extends Model
     protected $fillable = [
         'titre',
         'description',
+        'file_path',
         'theme_id'
     ];
 

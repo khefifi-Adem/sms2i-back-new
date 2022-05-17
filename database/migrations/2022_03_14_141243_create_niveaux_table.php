@@ -17,6 +17,7 @@ class CreateNiveauxTable extends Migration
             $table->id();
             $table->string('titre');
             $table->string('description');
+            $table->string('file_path');
             $table->unsignedBigInteger('theme_id');
             $table->foreign('theme_id')->references('id')->on('themes')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

@@ -17,4 +17,14 @@ class Project extends Model
         'id_client_indus',
         'id_domaine_indus'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'id_client_indus','id');
+    }
+
+    public function societe()
+    {
+        return $this->belongsTo(Groupe_sms2i::class,'id_soc','id');
+    }
 }
