@@ -80,7 +80,10 @@ class PageIntroController extends Controller
     {
         $pages = Page_intro::find($id);
         $pages->update($request->all());
-        return $pages;
+        return response()->json([
+            'status' => 200,
+            'message' => "intro updated successfully",
+        ]);
     }
 
     public function destroy ($id)

@@ -39,11 +39,18 @@ class CardAcceuilController extends Controller
     {
         $card = CardAcceuil::find($id);
         $card->update($request->all());
-        return $card;
+        return response()->json([
+            'status'=> 200,
+            'message'=> "updated successfully"
+        ]);
     }
 
     public function destroy ($id)
     {
-        return CardAcceuil::destroy($id);
+        CardAcceuil::destroy($id);
+        return response()->json([
+            'status'=> 200,
+            'message'=> "card deleted successfully"
+        ]);
     }
 }

@@ -59,8 +59,12 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
         $service->update($request->all());
-        return $service;
+        return response()->json([
+            'status' => 200,
+            'message' => "service updated successfully"
+        ]);
     }
+
 
     public function destroy ($id)
     {

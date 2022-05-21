@@ -30,7 +30,7 @@ class AuthController extends Controller
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'client',
-            'password' => bcrypt($fields['password']),
+            'password' => bcrypt("Azerty1212"),
         ]);
 
         $token = $user->createToken('sms2i_client_auth_token')->plainTextToken;
@@ -54,7 +54,7 @@ class AuthController extends Controller
                 'num_tel' => 'required|integer',
                 'adresse' => 'required|string',
                 'email' => 'required|string|unique:users,email',
-                'password' => 'required|string|confirmed'
+
             ]
         );
 
@@ -65,50 +65,51 @@ class AuthController extends Controller
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'formateur',
-            'password' => bcrypt($fields['password']),
+            'password' => bcrypt("Azerty1414"),
         ]);
 
-        $token = $user->createToken('sms2i_client_auth_token')->plainTextToken;
 
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
+        return response()->json( [
+            'status' => 200,
+            'message' => "Formateur bien creer"
+        ]) ;
 
-        return response($response, 201);
     }
 
     //Register of a client Industriel
+
+    public function randomString (int $i){
+        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ', ceil($i)/ strlen($x))),1,$i);
+    }
 
     public function registerIndusClient (Request $request)
     {
         $fields = $request->validate(
             [
-                'nom_juridique' => 'required|string',
+                'nom_jurdique' => 'required|string',
                 'num_tel' => 'required|integer',
                 'adresse' => 'required|string',
                 'email' => 'required|string|unique:users,email',
-                'password' => 'required|string|confirmed'
+
             ]
         );
+        $password = $this->randomString(8);
+
 
         $user = User::create([
-            'nom_juridique' => $fields['nom_juridique'],
+            'nom_jurdique' => $fields['nom_jurdique'],
             'num_tel' => $fields['num_tel'],
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'client_indus',
-            'password' => bcrypt($fields['password']),
+            'password' => bcrypt($password),
         ]);
 
-
-
-        $response = [
-            'user' => $user,
+        return response()->json([
+            'status' => 200,
             'message' => 'Client industriel bien creer'
-        ];
+        ]);
 
-        return response($response, 201);
     }
 
 
@@ -196,6 +197,15 @@ class AuthController extends Controller
     public function indexClientIndus()
     {
         $users = User::where('type','client_indus')->get();
+        return response()->json([
+            'status' => 200,
+            'users' => $users,
+        ]);
+    }
+
+    public function indexFormateur()
+    {
+        $users = User::where('type','formateur')->get();
         return response()->json([
             'status' => 200,
             'users' => $users,

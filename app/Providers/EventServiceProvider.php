@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Inscription;
+use App\Models\User;
 use App\Observers\InscriptionObserver;
+use App\Observers\RegisterObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,5 +32,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Inscription::observe(InscriptionObserver::class);
+        User::observe(RegisterObserver::class);
     }
 }

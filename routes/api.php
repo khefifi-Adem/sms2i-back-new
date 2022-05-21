@@ -18,8 +18,10 @@ use App\Http\Controllers\PageIntroController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecteurController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ThemeController;
 
+use App\Models\DemandeCycle;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,11 +34,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+    Route::post('/stripe-payment',[StripeController::class,'stripePost']);
+
     Route::post('/registerclient', [AuthController::class, 'registerClient']);
 
     Route::get('/clients', [AuthController::class, 'indexClient']);
 
     Route::get('/clients-indus', [AuthController::class, 'indexClientIndus']);
+
+    Route::get('/formateurs', [AuthController::class, 'indexFormateur']);
 
     Route::post('/registerindusclient', [AuthController::class, 'registerIndusClient']);
 
@@ -118,7 +124,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/services',[ServiceController::class,'store']);
 
-    Route::post('/services-update/{id}',[ServiceController::class,'update']);
+    Route::post('/services/{id}',[ServiceController::class,'update']);
 
     Route::delete('/services/{id}',[ServiceController::class, 'destroy']);
 
@@ -150,7 +156,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/registerformateur', [AuthController::class, 'registerFormateur']);
-    Route::post('/registerclientindus', [AuthController::class, 'registerIndusClient']);
+
 
 
     Route::post('/secteurs',[SecteurController::class,'store']);
