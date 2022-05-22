@@ -62,7 +62,10 @@ class NiveauController extends Controller
     {
         $niveau = Niveau::find($id);
         $niveau->update($request->all());
-        return $niveau;
+        return response()->json([
+            'status' => 200,
+            'message' => "niveau updated successfully",
+        ]);
     }
 
     public function destroy ($id)

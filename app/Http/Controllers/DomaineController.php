@@ -23,7 +23,12 @@ class DomaineController extends Controller
             'description' => 'required',
             'secteur_id' => 'required'
         ]);
-        return Domaine::create($request->all());
+        Domaine::create($request->all());
+
+        return response()->json([
+            'status'=> 200,
+            'message' => 'Domain created successfully'
+        ]);
     }
 
     public function show($id)
@@ -35,7 +40,10 @@ class DomaineController extends Controller
     {
         $domaine = Domaine::find($id);
         $domaine->update($request->all());
-        return $domaine;
+        return response()->json([
+            'status' => 200,
+            'message' => "domain updated successfully",
+        ]);
     }
 
     public function destroy ($id)

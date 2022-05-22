@@ -42,6 +42,9 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/clients-indus', [AuthController::class, 'indexClientIndus']);
 
+    Route::get('/admin', [AuthController::class, 'indexAdmin']);
+    Route::post('/admin', [AuthController::class, 'registerAdmin']);
+
     Route::get('/formateurs', [AuthController::class, 'indexFormateur']);
 
     Route::post('/registerindusclient', [AuthController::class, 'registerIndusClient']);

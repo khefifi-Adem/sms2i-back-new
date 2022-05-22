@@ -35,7 +35,10 @@ class ThemeController extends Controller
     {
         $theme = Theme::find($id);
         $theme->update($request->all());
-        return $theme;
+        return response()->json([
+            'status' => 200,
+            'message' => "theme updated successfully",
+        ]);
     }
 
     public function destroy ($id)

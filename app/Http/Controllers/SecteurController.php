@@ -22,7 +22,11 @@ class SecteurController extends Controller
             'titre' => 'required',
             'description' => 'required'
         ]);
-        return Secteur::create($request->all());
+        Secteur::create($request->all());
+        return response()->json([
+            'status'=> 200,
+            'message' => 'Secteur created successfully'
+        ]);
     }
 
     public function show($id)
@@ -34,7 +38,10 @@ class SecteurController extends Controller
     {
         $secteur = Secteur::find($id);
         $secteur->update($request->all());
-        return $secteur;
+        return response()->json([
+            'status' => 200,
+            'message' => "secteur updated successfully",
+        ]);
     }
 
     public function destroy ($id)
