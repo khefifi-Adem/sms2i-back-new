@@ -19,6 +19,7 @@ class CycleFormation extends Model
         'nb_heures',
         'nb_places',
         'nb_places_dispo',
+        'formateur_id',
         'niveau_id',
         'cout',
         'etat'

@@ -6,8 +6,10 @@ use App\Http\Controllers\CardAcceuilController;
 use App\Http\Controllers\CardEtapeController;
 use App\Http\Controllers\CategorieUtilisationController;
 use App\Http\Controllers\CycleFormationController;
+use App\Http\Controllers\DetailsFileController;
 use App\Http\Controllers\DomaineController;
 use App\Http\Controllers\DomaineIndusController;
+use App\Http\Controllers\FilesController;
 use App\Http\Controllers\GroupeSms2iController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\InscriptionIndusController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\NosPartenersController;
 use App\Http\Controllers\PageIntroController;
+use App\Http\Controllers\ProgrammeFileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecteurController;
 use App\Http\Controllers\ServiceController;
@@ -139,8 +142,48 @@ use Illuminate\Support\Facades\Route;
 
 
 
+    Route::get('/files',[FilesController::class,'index']);
 
-    Route::get('/demande_cycle',[DemandeCycle::class,'index']);
+    Route::post('/files',[FilesController::class,'store']);
+
+    Route::post('/files/{id}',[FilesController::class, 'update']);
+
+    Route::get('/files/{id}',[FilesController::class, 'show']);
+
+    Route::delete('/files/{id}',[FilesController::class, 'destroy']);
+
+
+    Route::get('/details_files',[DetailsFileController::class,'index']);
+
+    Route::post('/details_files',[DetailsFileController::class,'store']);
+
+    Route::post('/details_files/{id}',[DetailsFileController::class, 'update']);
+
+    Route::get('/details_files/{id}',[DetailsFileController::class, 'show']);
+
+    Route::delete('/details_files/{id}',[DetailsFileController::class, 'destroy']);
+
+
+
+    Route::get('/programme_files',[ProgrammeFileController::class,'index']);
+
+    Route::post('/programme_files',[ProgrammeFileController::class,'store']);
+
+    Route::post('/programme_files/{id}',[ProgrammeFileController::class, 'update']);
+
+    Route::get('/programme_files/{id}',[ProgrammeFileController::class, 'show']);
+
+    Route::delete('/programme_files/{id}',[ProgrammeFileController::class, 'destroy']);
+
+
+
+
+
+
+
+
+
+Route::get('/demande_cycle',[DemandeCycle::class,'index']);
 
     Route::post('/demande_cycle',[DemandeCycle::class,'store']);
 

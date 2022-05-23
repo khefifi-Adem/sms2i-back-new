@@ -9,7 +9,11 @@ class NiveauController extends Controller
 {
     public function index()
     {
-        return Niveau::all();
+        $niveaux = Niveau::all();
+        return response()->json([
+            'status' => 200,
+            'niveaux' => $niveaux
+        ]);
     }
 
     public function store(Request $request)

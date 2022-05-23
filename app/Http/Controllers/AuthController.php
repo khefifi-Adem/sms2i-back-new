@@ -30,17 +30,19 @@ class AuthController extends Controller
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'client',
-            'password' => bcrypt("Azerty1212"),
+            'password' => bcrypt($fields['password']),
         ]);
 
         $token = $user->createToken('sms2i_client_auth_token')->plainTextToken;
 
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
+        return response()->json([
+            'status'=> 200,
+            'message'=>'Registred succesfully',
+            'token' => $token,
+            'user'=>$user
+        ]);
 
-        return response($response, 201);
+
     }
 
     //Register of a formateur

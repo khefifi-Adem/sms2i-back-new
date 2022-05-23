@@ -19,11 +19,11 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'article' => 'required',
+            'model' => 'required',
+            'edition' => 'required',
             'description' => 'required',
             'id_marque'=>'required',
             'id_categorie_utilisation'=>'required',
-            'image_alt' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
@@ -34,11 +34,11 @@ class ArticleController extends Controller
             $destinationPath = base_path('uploads/articles/');
             $image->move($destinationPath, $image_name);
             $article = new Article([
-                'article' => $request->article,
+                'model' => $request->model,
+                'edition' => $request->edition ,
                 'description' => $request->description,
                 'id_marque' => $request->id_marque ,
                 'id_categorie_utilisation' => $request->id_categorie_utilisation ,
-                'image_alt' => $request->image_alt ,
                 'image_path' => 'uploads/articles/'.$image_name,
             ]);
             $article->save();

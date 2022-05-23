@@ -9,7 +9,11 @@ class CycleFormationController extends Controller
 {
     public function index()
     {
-        return CycleFormation::all();
+        $cycle= CycleFormation::all();
+        return response()->json([
+            'status'=> 200,
+            'cycles' => $cycle
+        ]);
     }
 
     public function store(Request $request)
@@ -22,12 +26,32 @@ class CycleFormationController extends Controller
             'nb_jours' => 'required',
             'nb_heures' => 'required',
             'nb_places' => 'required',
-            'nb_places_dispo' => 'required',
+            'formateur_id' => 'required',
             'niveau_id' => 'required',
-
             'etat' => 'required'
         ]);
-        return CycleFormation::create($request->all());
+        $cycle = new CycleFormation (
+            [
+                'titre' => $request->titre,
+                'description' => $request->description,
+                'date_debut' => $request->date_debut,
+                'date_fin' => $request->date_fin,
+                'nb_jours' => $request->nb_jours,
+                'nb_heures' => $request->nb_heures,
+                'nb_places' => $request->nb_places,
+                'nb_places_dispo' => $request->nb_places,
+                'formateur_id' => $request->formateur_id,
+                'niveau_id' => $request->niveau_id,
+                'etat' => $request->etat
+            ]
+        );
+        $cycle->save();
+
+        return response()->json([
+            'status' => 200,
+            'message' => "cycle added successfully",
+            'cycle' => $cycle
+        ]);
     }
 
     public function show($id)

@@ -25,6 +25,8 @@ class CreateCycleFormationsTable extends Migration
             $table->integer('nb_places_dispo');
             $table->unsignedBigInteger('niveau_id');
             $table->foreign('niveau_id')->references('id')->on('niveaux')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('formateur_id');
+            $table->foreign('formateur_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->decimal('cout')->nullable();
             $table->string('etat');
             $table->timestamps();

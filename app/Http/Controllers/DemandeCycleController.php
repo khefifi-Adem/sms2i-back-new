@@ -12,7 +12,7 @@ class DemandeCycleController extends Controller
         $demande = DemandeCycle::all();
         return response()->json([
             'status' => 200,
-            'cards' => $demande,
+            'demands' => $demande,
         ]);
     }
 
