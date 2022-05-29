@@ -16,17 +16,11 @@ class RegisterObserver
      */
     public function created(User $user)
     {
-        if ($user->type === "client_indus"){
-            $user->notify(new RegisterNotif("Aerty1212"));
-        }
-        else if ($user->type === "formateur")
+        if ($user->type !== "client")
         {
-            $user->notify(new RegisterNotif("Aerty1414"));
+            $user->notify(new RegisterNotif(decrypt($user->password)));
         }
-        else if ($user->type === "admin")
-        {
-            $user->notify(new RegisterNotif("Aerty1616"));
-        }
+
     }
 
     /**

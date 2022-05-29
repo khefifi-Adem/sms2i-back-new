@@ -28,6 +28,7 @@ class CreateCycleFormationsTable extends Migration
             $table->unsignedBigInteger('formateur_id');
             $table->foreign('formateur_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->decimal('cout')->nullable();
+            $table->string('link');
             $table->string('etat');
             $table->timestamps();
         });

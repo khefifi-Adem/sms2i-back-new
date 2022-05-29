@@ -22,7 +22,6 @@ class CreateCycleFormationIndusesTable extends Migration
             $table->integer('nb_jours');
             $table->integer('nb_heures');
             $table->integer('nb_places');
-            $table->integer('nb_places_dispo');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_formateur');
@@ -30,6 +29,7 @@ class CreateCycleFormationIndusesTable extends Migration
             $table->unsignedBigInteger('niveau_id');
             $table->foreign('niveau_id')->references('id')->on('niveaux')->onUpdate('cascade')->onDelete('cascade');
             $table->decimal('cout')->nullable();
+            $table->string('link');
             $table->string('etat');
             $table->timestamps();
         });

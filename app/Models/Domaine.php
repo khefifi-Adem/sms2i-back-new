@@ -15,12 +15,9 @@ class Domaine extends Model
         'secteur_id'
     ];
 
-    public function theme(){
-        return $this->hasMany(Theme::class,'domaine_id','id');
-    }
+    protected $with = ["childrens"];
 
-    public function domaine()
-    {
-        return $this->belongsTo(Secteur::class,'secteur_id','id');
+    public function childrens(){
+        return $this->hasMany(Theme::class,'domaine_id','id');
     }
 }

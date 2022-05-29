@@ -28,7 +28,8 @@ class CycleFormationController extends Controller
             'nb_places' => 'required',
             'formateur_id' => 'required',
             'niveau_id' => 'required',
-            'etat' => 'required'
+            'etat' => 'required',
+
         ]);
         $cycle = new CycleFormation (
             [
@@ -42,7 +43,8 @@ class CycleFormationController extends Controller
                 'nb_places_dispo' => $request->nb_places,
                 'formateur_id' => $request->formateur_id,
                 'niveau_id' => $request->niveau_id,
-                'etat' => $request->etat
+                'etat' => $request->etat,
+                'link' => ''
             ]
         );
         $cycle->save();

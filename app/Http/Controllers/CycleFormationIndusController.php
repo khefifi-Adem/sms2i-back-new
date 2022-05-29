@@ -19,23 +19,42 @@ class CycleFormationIndusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required',
+            'titre' => 'required',
             'description' => 'required',
             'date_debut' => 'required',
             'date_fin' => 'required',
             'nb_jours' => 'required',
             'nb_heures' => 'required',
-            'nb_places_dispo' => 'required',
+            'nb_places' => 'required',
             'id_formateur' => 'required',
             'id_user' => 'required',
             'niveau_id' => 'required',
             'cout' => 'required',
-            'etat' => 'required'
+            'link' => 'required',
+
         ]);
-        CycleFormationIndus::create($request->all());
+        $cycle = new CycleFormationIndus (
+            [
+                'titre' => $request->titre,
+                'description' => $request->description,
+                'date_debut' => $request->date_debut,
+                'date_fin' => $request->date_fin,
+                'nb_jours' => $request->nb_jours,
+                'nb_heures' => $request->nb_heures,
+                'nb_places' => $request->nb_places,
+                'id_formateur' => $request->id_formateur,
+                'id_user'=> $request->id_user,
+                'niveau_id' => $request->niveau_id,
+                'cout' => $request->cout,
+                'link' => $request->link,
+            ]
+        );
+        $cycle->save();
+
         return response()->json([
             'status'=> 200,
-            'message' => 'Cycle created successfully'
+            'message' => 'Cycle created successfully',
+            'cycle' => $cycle
         ]);
     }
 

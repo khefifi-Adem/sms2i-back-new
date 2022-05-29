@@ -15,7 +15,9 @@ class Theme extends Model
         'domaine_id'
     ];
 
-    public function niveau(){
+    protected $with = ['childrens'];
+
+    public function childrens(){
         return $this->hasMany(Niveau::class,'theme_id','id');
     }
 

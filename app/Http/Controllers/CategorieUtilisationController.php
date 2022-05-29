@@ -30,7 +30,7 @@ class CategorieUtilisationController extends Controller
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
             $image_name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/categorieArticle/');
+            $destinationPath = base_path('public/uploads/categorieArticle/');
             $image->move($destinationPath, $image_name);
             $cat_util = new CategorieUtilisation([
                 'categorie' => $request->categorie,
@@ -41,10 +41,10 @@ class CategorieUtilisationController extends Controller
             $cat_util->save();
 
         }
-        else
-        {
-            return response ('mession failed',400);
-        }
+        return response()->json([
+            'status' => 200,
+            'message' => "Categorie created"
+        ]);
     }
 
     public function show($id)
@@ -61,6 +61,10 @@ class CategorieUtilisationController extends Controller
 
     public function destroy ($id)
     {
-        return CategorieUtilisation::destroy($id);
+        CategorieUtilisation::destroy($id);
+        return response()->json([
+            'status' => 200,
+            'message' => 'deleted successfully'
+        ]);
     }
 }

@@ -58,16 +58,34 @@ class ServiceController extends Controller
     public function update (Request $request, $id)
     {
         $service = Service::find($id);
-        $service->update($request->all());
-        return response()->json([
-            'status' => 200,
-            'message' => "service updated successfully"
-        ]);
+
+        if ($request->hasFile('image_path')) {
+            $image = $request->file('image_path');
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = base_path('uploads/pages/');
+            $image->move($destinationPath, $image_name);
+
+
+            $service->titre = $request->titre;
+            $service->description = $request->description;
+            $service->image_path = 'uploads/service/'.$image_name;
+
+
+            $service->update();
+            return response()->json([
+                'status' => 200,
+                'message' => 'services data updated successfully',
+            ]);
+        }
     }
 
 
     public function destroy ($id)
     {
-        return Service::destroy($id);
+        Service::destroy($id);
+        return response()->json([
+           'status' => 200,
+           'message' => "service bien supprimer"
+        ]);
     }
 }

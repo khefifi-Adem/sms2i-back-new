@@ -18,6 +18,8 @@ class Project extends Model
         'id_domaine_indus'
     ];
 
+    protected $with = ["user","societe","domaine"];
+
     public function user()
     {
         return $this->belongsTo(User::class,'id_client_indus','id');
@@ -26,5 +28,10 @@ class Project extends Model
     public function societe()
     {
         return $this->belongsTo(Groupe_sms2i::class,'id_soc','id');
+    }
+
+    public function domaine()
+    {
+        return $this->belongsTo(Domaine_indus::class,'id_domaine_indus','id');
     }
 }

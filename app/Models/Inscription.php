@@ -12,5 +12,12 @@ class Inscription extends Model
     protected $fillable = [
         'id_cycle_formation',
         'id_user',
+        'etat'
         ];
+
+    protected $with = ['clients'];
+
+    public function clients (){
+        return $this->belongsTo(User::class,'id_user','id');
+    }
 }

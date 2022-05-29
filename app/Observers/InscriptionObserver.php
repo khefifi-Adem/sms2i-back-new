@@ -12,6 +12,9 @@ class InscriptionObserver
     {
         $decrem = CycleFormation::find($inscription->id_cycle_formation);
         $decrem->nb_places_dispo = $decrem->nb_places_dispo-1;
+        if ($decrem->nb_places_dispo === 0) {
+            $decrem->etat = 'complet';
+        }
         $decrem->save();
 
     }

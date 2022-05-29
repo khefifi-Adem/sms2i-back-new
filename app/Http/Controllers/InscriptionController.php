@@ -10,8 +10,21 @@ class InscriptionController extends Controller
 {
     public function index()
     {
-        return Inscription::all();
+        return response()->json([
+            'status' => 200,
+            'inscriptions' => Inscription::all()
+        ]);
+
     }
+
+//    public function indexInscription($id)
+//    {
+//        $cycles = Inscription::where('id_user',$id)->get();
+//        return response()->json([
+//            'status' => 200,
+//            'inscription' => $cycles
+//        ]);
+//    }
 
     public function store(Request $request)
     {
@@ -21,7 +34,20 @@ class InscriptionController extends Controller
         ]);
 
 
-        return Inscription::create($request->all());
+        if (Inscription::find($request->id_user) && Inscription::find($request->id_cycle_formation))
+        {
+            return response()->json([
+                'status' => 400,
+                'message' => 'vous etes deja inscrit'
+            ]);
+        }else {
+
+        Inscription::create($request->all());
+
+        return response()->json([
+           'status' => 200,
+           'message' => 'vous etes inscrit'
+        ]);}
     }
 
     public function show($id)

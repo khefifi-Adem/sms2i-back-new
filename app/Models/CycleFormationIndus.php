@@ -17,11 +17,32 @@ class CycleFormationIndus extends Model
         'nb_jours',
         'nb_heures',
         'nb_places',
-        'nb_places_dispo',
         'id_user',
         'id_formateur',
         'niveau_id',
         'cout',
-        'etat'
+        'etat',
+        'link'
     ];
+
+    protected $with = ['fileDetails','fileProgramme','files','niveaux','user'];
+
+    public function fileDetails (){
+        return $this->hasMany(DetailsFile::class,'id_induses','id');
+    }
+    public function fileProgramme (){
+        return $this->hasMany(ProgrammeFile::class,'id_induses','id');
+    }
+    public function files (){
+        return $this->hasMany(Files::class,'id_induses','id');
+    }
+    public function niveaux (){
+        return $this->belongsTo(Niveau::class,'niveau_id','id');
+    }
+
+    public function user (){
+        return $this->belongsTo(User::class,'id_user','id');
+    }
+
+
 }

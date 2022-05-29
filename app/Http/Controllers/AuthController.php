@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     //Register of a client
-
+    public function randomString (int $i){
+        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ', ceil($i)/ strlen($x))),1,$i);
+    }
     public function registerClient (Request $request)
     {
+
+
         $fields = $request->validate(
             [
                 'nom' => 'required|string',
@@ -59,15 +63,15 @@ class AuthController extends Controller
 
             ]
         );
-
-        $user = User::create([
+        $password = $this->randomString(8);
+        User::create([
             'nom' => $fields['nom'],
             'prenom' => $fields['prenom'],
             'num_tel' => $fields['num_tel'],
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'formateur',
-            'password' => bcrypt("Azerty1414"),
+            'password' => bcrypt($password),
         ]);
 
 
@@ -93,14 +97,15 @@ class AuthController extends Controller
             ]
         );
 
-        $user = User::create([
+        $password = $this->randomString(8);
+        User::create([
             'nom' => $fields['nom'],
             'prenom' => $fields['prenom'],
             'num_tel' => $fields['num_tel'],
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'admin',
-            'password' => bcrypt("Azerty1616"),
+            'password' => bcrypt($password),
         ]);
 
 
@@ -113,9 +118,7 @@ class AuthController extends Controller
 
     //Register of a client Industriel
 
-    public function randomString (int $i){
-        return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ', ceil($i)/ strlen($x))),1,$i);
-    }
+
 
     public function registerIndusClient (Request $request)
     {
@@ -131,7 +134,7 @@ class AuthController extends Controller
         $password = $this->randomString(8);
 
 
-        $user = User::create([
+         User::create([
             'nom_jurdique' => $fields['nom_jurdique'],
             'num_tel' => $fields['num_tel'],
             'adresse' => $fields['adresse'],
@@ -207,6 +210,14 @@ class AuthController extends Controller
         return response()->json([
             'status' => 200,
             'users' => $users,
+        ]);
+    }
+    public function show($id)
+    {
+
+        return response()->json([
+            'status' => 200,
+            'users' => User::find($id),
         ]);
     }
 

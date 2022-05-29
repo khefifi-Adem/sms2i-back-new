@@ -12,6 +12,16 @@ class DemandeCycle extends Model
         'type',
         'nb_personne',
         'id_client_indus',
-        'id_niveau'
+        'id_niveau',
+        'message'
     ];
+
+    protected $with = ["client","niveau"];
+
+    public function client(){
+        return $this->belongsTo(User::class,'id_client_indus','id');
+    }
+    public function niveau(){
+        return $this->belongsTo(Niveau::class,'id_niveau','id');
+    }
 }

@@ -9,7 +9,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $article = Article::with(['marque','category'])->get();
+        $article = Article::all();
         return response()->json([
             'status'=>200,
             'articles'=>$article
@@ -22,33 +22,32 @@ class ArticleController extends Controller
             'model' => 'required',
             'edition' => 'required',
             'description' => 'required',
-            'id_marque'=>'required',
-            'id_categorie_utilisation'=>'required',
+            'id_marque' => 'required',
+            'id_categorie_utilisation' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
 
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
-            $image_name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/articles/');
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = base_path('public/uploads/articles/');
             $image->move($destinationPath, $image_name);
             $article = new Article([
                 'model' => $request->model,
-                'edition' => $request->edition ,
+                'edition' => $request->edition,
                 'description' => $request->description,
-                'id_marque' => $request->id_marque ,
-                'id_categorie_utilisation' => $request->id_categorie_utilisation ,
-                'image_path' => 'uploads/articles/'.$image_name,
+                'id_marque' => $request->id_marque,
+                'id_categorie_utilisation' => $request->id_categorie_utilisation,
+                'image_path' => 'uploads/articles/' . $image_name,
             ]);
             $article->save();
-
-
+            return response()->json([
+                'status' => 200,
+                'message' => 'Article Created'
+            ]);
         }
-        else
-        {
-            return response ('mession failed',400);
-        }
+
     }
 
     public function show($id)

@@ -66,11 +66,26 @@ class ProjectController extends Controller
     public function update (Request $request, $id)
     {
         $project = Project::find($id);
-        $project->update($request->all());
-        return response()->json([
-            'status' => 200,
-            "message"=> $project
-        ]) ;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = base_path('uploads/projects/');
+            $image->move($destinationPath, $image_name);
+            $project->title = $request->title;
+            $project->description = $request->description;
+            $project->image = 'uploads/projects/'.$image_name ;
+            $project->id_soc = $request->id_soc ;
+            $project->id_client_indus = $request->id_client_indus ;
+            $project->id_domaine_indus = $request->id_domaine_indus;
+
+            $project->update();
+            return response()->json([
+                'status' => 200,
+                'message' => 'project updated perfectly'
+            ]);
+
+        }
+
     }
 
     public function destroy ($id)

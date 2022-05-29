@@ -13,8 +13,9 @@ class Secteur extends Model
         'titre',
         'description'
     ];
+    protected $with = ["childrens"];
 
-    public function domaine(){
+    public function childrens(){
         return $this->hasMany(Domaine::class,'secteur_id','id');
     }
 

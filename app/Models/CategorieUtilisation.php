@@ -16,6 +16,9 @@ class CategorieUtilisation extends Model
         'image_path',
     ];
 
+
+    protected $with = ["article"];
+
     public function article(){
         return $this->hasMany(Article::class,'id_categorie_utilisation','id');
     }

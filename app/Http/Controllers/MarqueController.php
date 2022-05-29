@@ -9,7 +9,10 @@ class MarqueController extends Controller
 {
     public function index()
     {
-        return Marque::all();
+        return response()->json([
+            'status'=> 200,
+            'marques'=>Marque::all()
+        ]);
     }
 
     public function store(Request $request)
@@ -23,13 +26,17 @@ class MarqueController extends Controller
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
             $image_name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/marques/');
+            $destinationPath = base_path('public/uploads/marques/');
             $image->move($destinationPath, $image_name);
             $marque = new Marque([
                 'marque' => $request->marque,
                 'image_path' => 'uploads/marques/'.$image_name,
             ]);
             $marque->save();
+            return response([
+                'status' => 200,
+                'message' => 'marque created'
+            ]);
         }
         else
         {
@@ -55,6 +62,10 @@ class MarqueController extends Controller
 
     public function destroy ($id)
     {
-        return Marque::destroy($id);
+        Marque::destroy($id);
+        return response()->json([
+           'status'=> 200,
+            'message' => 'deleted successfully'
+        ]);
     }
 }

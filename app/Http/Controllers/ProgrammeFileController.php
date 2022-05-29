@@ -16,7 +16,7 @@ class ProgrammeFileController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function storeCycle(Request $request)
     {
         $request->validate([
             'file_path' => 'required|file|mimes:pdf'
@@ -29,6 +29,30 @@ class ProgrammeFileController extends Controller
             $file->move($destinationPath, $file_name);
             $file = new ProgrammeFile([
                 'id_cycle' => $request->id_cycle,
+
+                'file_path' => 'uploads/files/'.$file_name ,
+            ]);
+            $file->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'file added perfectly'
+            ]);
+
+        }
+    }
+
+        public function storeIndus(Request $request)
+    {
+        $request->validate([
+            'file_path' => 'required|file|mimes:pdf'
+        ]);
+
+        if ($request->hasFile('file_path')) {
+            $file = $request->file('file_path');
+            $file_name = time().'.'.$file->getClientOriginalExtension();
+            $destinationPath = base_path('uploads/files/');
+            $file->move($destinationPath, $file_name);
+            $file = new ProgrammeFile([
                 'id_induses' => $request->id_induses,
                 'file_path' => 'uploads/files/'.$file_name ,
             ]);
@@ -48,6 +72,7 @@ class ProgrammeFileController extends Controller
 
         }
     }
+
 
 
     public function show($id)

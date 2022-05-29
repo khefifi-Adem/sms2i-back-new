@@ -16,7 +16,7 @@ class StripeController extends Controller
         Stripe\Charge::create ([
             "amount" => 100*100,
             "currency" => "USD",
-            "source" => $request->stripeToken,
+            "source" => env('STRIPE_PUBLIC'),
             "description" => "This is test payment",
         ]);
 

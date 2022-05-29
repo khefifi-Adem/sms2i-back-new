@@ -16,6 +16,15 @@ class DomaineController extends Controller
         ]);
     }
 
+    public function indexSecteur($id)
+    {
+        $domaines = Domaine::where('secteur_id',$id)->with('theme')->get();
+        return response()->json([
+            'status'=>200,
+            'domaines'=>$domaines
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([

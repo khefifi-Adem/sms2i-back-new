@@ -47,6 +47,10 @@ class CardEtapeController extends Controller
 
     public function destroy ($id)
     {
-        return Card_etape::destroy($id);
+        Card_etape::destroy($id);
+        return response()->json([
+            'status' => 200,
+            'message' => 'card deleted successfully'
+        ]);
     }
 }

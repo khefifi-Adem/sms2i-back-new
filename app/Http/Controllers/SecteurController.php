@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Domaine;
+use App\Models\Niveau;
 use App\Models\Secteur;
+use App\Models\Theme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SecteurController extends Controller
 {
     public function index()
     {
-        $secteur = Secteur::with('domaine')->get();
+
+        $secteur = Secteur::all();
         return response()->json([
             'status'=>200,
             'secteurs'=>$secteur
@@ -48,5 +53,7 @@ class SecteurController extends Controller
     {
         return Secteur::destroy($id);
     }
+
+
 
 }
