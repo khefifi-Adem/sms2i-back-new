@@ -58,12 +58,33 @@ class ArticleController extends Controller
     public function update (Request $request, $id)
     {
         $article = Article::find($id);
-        $article->update($request->all());
-        return $article;
+        if ($request->hasFile('image_path')) {
+            $image = $request->file('image_path');
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = base_path('public/uploads/articles/');
+            $image->move($destinationPath, $image_name);
+
+                $article->model = $request->model;
+                $article->edition =  $request->edition;
+                $article->description = $request->description;
+                $article->id_marque = $request->id_marque;
+                $article->id_categorie_utilisation = $request->id_categorie_utilisation;
+                $article->image_path = 'uploads/articles/' . $image_name;
+
+            $article->update();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Article updated'
+            ]);
+        }
     }
 
     public function destroy ($id)
     {
-        return Article::destroy($id);
+        Article::destroy($id);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Article deleted'
+        ]);
     }
 }

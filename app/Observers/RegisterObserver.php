@@ -16,10 +16,7 @@ class RegisterObserver
      */
     public function created(User $user)
     {
-        if ($user->type !== "client")
-        {
-            $user->notify(new RegisterNotif(decrypt($user->password)));
-        }
+
 
     }
 

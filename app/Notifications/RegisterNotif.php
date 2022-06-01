@@ -46,7 +46,7 @@ class RegisterNotif extends Notification
             ->line('The introduction to the notification.')
             ->action('Connexion page', url('http://localhost:3000/sign-in'))
             ->line('This is ur password : '.$this->password)
-            ->line('Thank you for using our application!');
+            ->line('Thank you for using our Web Site!');
     }
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\RegisterNotif;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -64,15 +66,17 @@ class AuthController extends Controller
             ]
         );
         $password = $this->randomString(8);
-        User::create([
+
+        $user =User::create([
             'nom' => $fields['nom'],
             'prenom' => $fields['prenom'],
             'num_tel' => $fields['num_tel'],
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'formateur',
-            'password' => bcrypt($password),
+            'password' => bcrypt('Azerty1212'),
         ]);
+        $user->notify(new RegisterNotif($password));
 
 
         return response()->json( [
@@ -98,15 +102,17 @@ class AuthController extends Controller
         );
 
         $password = $this->randomString(8);
-        User::create([
+
+        $user = User::create([
             'nom' => $fields['nom'],
             'prenom' => $fields['prenom'],
             'num_tel' => $fields['num_tel'],
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'admin',
-            'password' => bcrypt($password),
+            'password' => bcrypt('Azerty1212'),
         ]);
+        $user->notify(new RegisterNotif($password));
 
 
         return response()->json( [
@@ -131,17 +137,18 @@ class AuthController extends Controller
 
             ]
         );
+
         $password = $this->randomString(8);
 
-
-         User::create([
+         $user = User::create([
             'nom_jurdique' => $fields['nom_jurdique'],
             'num_tel' => $fields['num_tel'],
             'adresse' => $fields['adresse'],
             'email' => $fields['email'],
             'type' => 'client_indus',
-            'password' => bcrypt($password),
+            'password' => bcrypt('Azerty1212'),
         ]);
+        $user->notify(new RegisterNotif($password));
 
         return response()->json([
             'status' => 200,
@@ -187,7 +194,7 @@ class AuthController extends Controller
 
         return response()->json([
             'status'=> 200,
-            'message'=>'Registred succesfully',
+            'message'=>'Connected succesfully',
             'token' => $token,
             'user'=>$user
         ]);
@@ -214,10 +221,11 @@ class AuthController extends Controller
     }
     public function show($id)
     {
+        $user = User::find($id);
 
         return response()->json([
             'status' => 200,
-            'users' => User::find($id),
+            'users' => $user,
         ]);
     }
 
@@ -237,6 +245,28 @@ class AuthController extends Controller
             'status' => 200,
             'users' => $users,
         ]);
+    }
+
+    public function updatePassword (Request $request, $id)
+    {
+
+        if(!(Hash::check($request->password ,Auth::user()->getAuthPassword())))
+        {
+            return response()->json([
+                'status'=> 401,
+                'message'=>'wrong credits'
+            ]);
+        }
+        $user = Auth::user();
+        $user->password = bcrypt($request->newPassword);
+        $user->save();
+        return response()->json([
+            'status'=> 200,
+            'message'=>'Updated succesfully',
+
+        ]);
+
+
     }
 
 }

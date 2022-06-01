@@ -23,7 +23,11 @@ class ThemeController extends Controller
             'description' => 'required',
             'domaine_id' => 'required'
         ]);
-        return Theme::create($request->all());
+        Theme::create($request->all());
+        return response()->json([
+            'status'=>200,
+            'message'=> 'theme created successfully'
+        ]);
     }
 
     public function show($id)

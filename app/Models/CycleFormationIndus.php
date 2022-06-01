@@ -25,13 +25,13 @@ class CycleFormationIndus extends Model
         'link'
     ];
 
-    protected $with = ['fileDetails','fileProgramme','files','niveaux','user'];
+    protected $with = ['fileDetails','fileProgramme','files','niveaux','user','formateur'];
 
     public function fileDetails (){
-        return $this->hasMany(DetailsFile::class,'id_induses','id');
+        return $this->hasOne(DetailsFile::class,'id_induses','id');
     }
     public function fileProgramme (){
-        return $this->hasMany(ProgrammeFile::class,'id_induses','id');
+        return $this->hasOne(ProgrammeFile::class,'id_induses','id');
     }
     public function files (){
         return $this->hasMany(Files::class,'id_induses','id');
@@ -42,6 +42,9 @@ class CycleFormationIndus extends Model
 
     public function user (){
         return $this->belongsTo(User::class,'id_user','id');
+    }
+    public function formateur (){
+        return $this->belongsTo(User::class,'id_formateur','id');
     }
 
 

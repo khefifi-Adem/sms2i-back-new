@@ -21,3 +21,4 @@ class Domaine extends Model
         return $this->hasMany(Theme::class,'domaine_id','id');
     }
 }
+

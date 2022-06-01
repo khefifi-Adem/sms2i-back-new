@@ -28,7 +28,6 @@ class CycleFormationController extends Controller
             'nb_places' => 'required',
             'formateur_id' => 'required',
             'niveau_id' => 'required',
-            'etat' => 'required',
 
         ]);
         $cycle = new CycleFormation (
@@ -43,8 +42,9 @@ class CycleFormationController extends Controller
                 'nb_places_dispo' => $request->nb_places,
                 'formateur_id' => $request->formateur_id,
                 'niveau_id' => $request->niveau_id,
-                'etat' => $request->etat,
-                'link' => ''
+                'etat' => 'preparation',
+                'link' => $request->link,
+                'cout' => $request->cout
             ]
         );
         $cycle->save();
@@ -65,12 +65,21 @@ class CycleFormationController extends Controller
     {
         $cycle_formation = CycleFormation::find($id);
         $cycle_formation->update($request->all());
-        return $cycle_formation;
+        return response()->json([
+            'status'=> 200,
+            'message'=> "updated successfully",
+        ]);
     }
 
 
     public function destroy ($id)
     {
-        return CycleFormation::destroy($id);
+        $cycle = CycleFormation::destroy($id);
+        if ($cycle===1) {
+            return response()->json([
+                'status'=>200,
+                'message' => 'deleted successfully'
+            ]);
+        }
     }
 }

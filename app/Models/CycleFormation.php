@@ -27,22 +27,25 @@ class CycleFormation extends Model
 
     ];
 
-    protected $with = ['fileDetails','fileProgramme','inscription','files','niveaux'];
+    protected $with = ['fileDetails','fileProgramme','inscription','files','niveaux','formateur'];
 
     public function fileDetails (){
-        return $this->hasMany(DetailsFile::class,'id_cycle','id');
+        return $this->hasOne(DetailsFile::class,'id_cycle','id');
     }
     public function inscription (){
         return $this->hasMany(Inscription::class,'id_cycle_formation','id');
     }
     public function fileProgramme (){
-        return $this->hasMany(ProgrammeFile::class,'id_cycle','id');
+        return $this->hasOne(ProgrammeFile::class,'id_cycle','id');
     }
     public function files (){
         return $this->hasMany(Files::class,'id_cycle','id');
     }
     public function niveaux (){
         return $this->belongsTo(Niveau::class,'niveau_id','id');
+    }
+    public function formateur (){
+        return $this->belongsTo(User::class,'formateur_id','id');
     }
 
 

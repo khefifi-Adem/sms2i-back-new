@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Page_intro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PageIntroController extends Controller
 {
@@ -37,7 +38,7 @@ class PageIntroController extends Controller
                 'description' => $request->description ,
                 'image_path' => 'uploads/pages/'.$image_name,
             ]);
-            $page->save();
+            $page->update();
             return response()->json([
                 'status' => 200,
                 'message' => 'page data added successfully',
@@ -76,11 +77,15 @@ class PageIntroController extends Controller
         ]);
     }
 
-    public function update (Request $request, $id)
+    public function  update (Request $request, $id)
     {
         $page = Page_intro::find($id);
 
         if ($request->hasFile('image_path')) {
+            $path = $page->image_path;
+            if (File::exists($path)){
+                File::delete($path);
+            }
             $image = $request->file('image_path');
             $image_name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = base_path('public/uploads/pages/');

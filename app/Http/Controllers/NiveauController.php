@@ -28,7 +28,7 @@ class NiveauController extends Controller
         if ($request->hasFile('file_path')) {
             $file = $request->file('file_path');
             $file_name = time().'.'.$file->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/files/niveaux/');
+            $destinationPath = base_path('public/uploads/files/niveaux/');
             $file->move($destinationPath, $file_name);
             $niveau = new Niveau([
                 'titre' => $request->titre,
@@ -65,17 +65,36 @@ class NiveauController extends Controller
     public function update (Request $request, $id)
     {
         $niveau = Niveau::find($id);
-        $niveau->update($request->all());
-        return response()->json([
-            'status' => 200,
-            'message' => "niveau updated successfully",
-        ]);
+        if ($request->hasFile('file_path')) {
+            $file = $request->file('file_path');
+            $file_name = time().'.'.$file->getClientOriginalExtension();
+            $destinationPath = base_path('public/uploads/files/niveaux/');
+            $file->move($destinationPath, $file_name);
+
+                $niveau->titre = $request->titre;
+                $niveau->description = $request->description;
+                $niveau->file_path = 'uploads/files/niveaux/'.$file_name;
+
+            $niveau->update();
+            return response()->json([
+                'status' => 200,
+                'message' => 'niveau updated perfectly'
+            ]);
+
+        }
+
     }
 
     public function destroy ($id)
     {
-        return Niveau::destroy($id);
+        Niveau::destroy($id);
+        return response()->json([
+            'status' => 200,
+            'message' => 'niveau deleted perfectly'
+        ]);
     }
+
+
 
     public function indexNiveau($id)
     {

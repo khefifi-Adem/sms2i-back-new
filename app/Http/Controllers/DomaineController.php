@@ -9,7 +9,7 @@ class DomaineController extends Controller
 {
     public function index()
     {
-        $domaines = Domaine::with('theme')->get();
+        $domaines = Domaine::all();
         return response()->json([
             'status'=>200,
             'domaines'=>$domaines

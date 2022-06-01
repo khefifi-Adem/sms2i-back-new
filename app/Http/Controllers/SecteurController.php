@@ -51,8 +51,15 @@ class SecteurController extends Controller
 
     public function destroy ($id)
     {
-        return Secteur::destroy($id);
+        $secteur = Secteur::destroy($id);
+        if ($secteur===1) {
+            return response()->json([
+                'status'=>200,
+                'message' => 'deleted successfully'
+            ]);
+        }
     }
+
 
 
 

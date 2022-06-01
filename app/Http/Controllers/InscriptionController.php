@@ -33,27 +33,30 @@ class InscriptionController extends Controller
             'id_user' => 'required'
         ]);
 
-
-        if (Inscription::find($request->id_user) && Inscription::find($request->id_cycle_formation))
-        {
-            return response()->json([
-                'status' => 400,
-                'message' => 'vous etes deja inscrit'
-            ]);
-        }else {
-
         Inscription::create($request->all());
 
-        return response()->json([
-           'status' => 200,
-           'message' => 'vous etes inscrit'
-        ]);}
-    }
+            return response()->json([
+                'status' => 200,
+                'message' => 'vous etes inscrit'
+            ]);
+        }
+
+
 
     public function show($id)
     {
         return Inscription::find($id);
     }
+
+    public function indexInscription($id)
+    {
+        $inscritption = Inscription::where('id_user',$id)->get();
+        return response()->json([
+           'status' => 200,
+           'inscriptions' => $inscritption
+        ]);
+    }
+
 
     public function update (Request $request, $id)
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ServiceController extends Controller
 {
@@ -29,7 +30,7 @@ class ServiceController extends Controller
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
             $image_name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/service/');
+            $destinationPath = base_path('public/uploads/service/');
             $image->move($destinationPath, $image_name);
             $services = new Service([
                 'titre' => $request->titre,
@@ -40,7 +41,7 @@ class ServiceController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'service' => "service seccessfully added",
+                'message' => "service seccessfully added",
             ]);
 
         }
@@ -60,9 +61,12 @@ class ServiceController extends Controller
         $service = Service::find($id);
 
         if ($request->hasFile('image_path')) {
+            if (File::exists($service->image_path)){
+                File::delete($service->image_path);
+            }
             $image = $request->file('image_path');
             $image_name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/pages/');
+            $destinationPath = base_path('public/uploads/service/');
             $image->move($destinationPath, $image_name);
 
 

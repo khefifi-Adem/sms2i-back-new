@@ -17,7 +17,7 @@ class CategorieUtilisation extends Model
     ];
 
 
-    protected $with = ["article"];
+    protected $with = ['article'];
 
     public function article(){
         return $this->hasMany(Article::class,'id_categorie_utilisation','id');

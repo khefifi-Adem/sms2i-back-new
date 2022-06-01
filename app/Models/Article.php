@@ -18,11 +18,14 @@ class Article extends Model
         'id_categorie_utilisation',
     ];
 
-    protected $with = ["marque"];
+
+    protected $with = ['marque'];
 
     public function marque()
     {
         return $this->belongsTo(Marque::class,'id_marque','id');
     }
+
+
 
 }

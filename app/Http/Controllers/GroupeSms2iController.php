@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Groupe_sms2i;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class GroupeSms2iController extends Controller
 {
@@ -27,7 +28,7 @@ class GroupeSms2iController extends Controller
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
             $image_name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/groupesms2i/');
+            $destinationPath = base_path('public/uploads/groupesms2i/');
             $image->move($destinationPath, $image_name);
             $groupe = new Groupe_sms2i([
                 'nom_soc' => $request->nom_soc,
@@ -60,12 +61,35 @@ class GroupeSms2iController extends Controller
     public function update (Request $request, $id)
     {
         $groupesms2i = Groupe_sms2i::find($id);
-        $groupesms2i->update($request->all());
-        return $groupesms2i;
+
+        if ($request->hasFile('image_path')) {
+            if (File::exists($groupesms2i->image_path)){
+                File::delete($groupesms2i->image_path);
+            }
+            $image = $request->file('image_path');
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = base_path('public/uploads/groupesms2i/');
+            $image->move($destinationPath, $image_name);
+
+                $groupesms2i->nom_soc = $request->nom_soc;
+                $groupesms2i->description = $request->description;
+                $groupesms2i->image_path = 'uploads/groupesms2i/'.$image_name ;
+
+            $groupesms2i->update();
+            return response()->json([
+                'status' => 200,
+                'message' => 'society updated perfectly'
+            ]);
+
+        }
     }
 
     public function destroy ($id)
     {
-        return Groupe_sms2i::destroy($id);
+        Groupe_sms2i::destroy($id);
+        return response()->json([
+            'status' => 200,
+            'message' => 'society deleted perfectly'
+        ]);
     }
 }

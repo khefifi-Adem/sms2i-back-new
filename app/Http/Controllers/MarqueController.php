@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Marque;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class MarqueController extends Controller
 {
     public function index()
     {
+
+        $marque = Marque::all();
         return response()->json([
-            'status'=> 200,
-            'marques'=>Marque::all()
+            'status'=>200,
+            'marques'=>$marque
         ]);
     }
 
@@ -56,9 +59,24 @@ class MarqueController extends Controller
     public function update (Request $request, $id)
     {
         $marque = Marque::find($id);
-        $marque->update($request->all());
-        return $marque;
-    }
+        if ($request->hasFile('image_path')) {
+            if (File::exists($marque->image_path)){
+                File::delete($marque->image_path);
+            }
+            $image = $request->file('image_path');
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = base_path('public/uploads/marques/');
+            $image->move($destinationPath, $image_name);
+
+            $marque->marque = $request->marque;
+            $marque->image_path = 'uploads/marques/' . $image_name;
+
+            $marque->update();
+            return response([
+                'status' => 200,
+                'message' => 'marque updated'
+            ]);
+        }}
 
     public function destroy ($id)
     {

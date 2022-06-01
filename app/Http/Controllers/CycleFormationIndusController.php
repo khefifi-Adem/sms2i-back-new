@@ -63,15 +63,33 @@ class CycleFormationIndusController extends Controller
         return CycleFormationIndus::find($id);
     }
 
+    public function showUser($id)
+        {
+            $cycles = CycleFormationIndus::where('id_user',$id)->get();
+            return response()->json([
+                'status' => 200,
+                'cycles' => $cycles
+            ]);
+        }
+
     public function update (Request $request, $id)
     {
-        $cycle = CycleFormationIndus::find($id);
-        $cycle->update($request->all());
-        return $cycle;
+        $cycle_formation = CycleFormationIndus::find($id);
+        $cycle_formation->update($request->all());
+        return response()->json([
+            'status'=> 200,
+            'message'=> "updated successfully",
+        ]);
     }
 
     public function destroy ($id)
     {
-        return CycleFormationIndus::destroy($id);
+        $cycle = CycleFormationIndus::destroy($id);
+        if ($cycle===1) {
+            return response()->json([
+                'status'=>200,
+                'message' => 'deleted successfully'
+            ]);
+        }
     }
 }

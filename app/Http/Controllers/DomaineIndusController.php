@@ -38,11 +38,19 @@ class DomaineIndusController extends Controller
     {
         $domaineindus = Domaine_indus::find($id);
         $domaineindus->update($request->all());
-        return $domaineindus;
+        return response()->json([
+            'status'=> 200,
+            'message' => 'domaine industriel updated successfully'
+        ]);
     }
 
     public function destroy ($id)
     {
-        return Domaine_indus::destroy($id);
+        Domaine_indus::destroy($id);
+
+        return response()->json([
+            'status'=> 200,
+            'message' => 'domaine industriel deletes successfully'
+        ]);
     }
 }

@@ -29,7 +29,7 @@ class NosPartenersController extends Controller
         if ($request->hasFile('image_path')) {
             $image = $request->file('image_path');
             $image_name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = base_path('uploads/partners/');
+            $destinationPath = base_path('public/uploads/partners/');
             $image->move($destinationPath, $image_name);
             $parteners = new NosPartener([
                 'partener' => $request->partener,
@@ -59,12 +59,32 @@ class NosPartenersController extends Controller
     public function update (Request $request, $id)
     {
         $nos_parteners = NosPartener::find($id);
-        $nos_parteners->update($request->all());
-        return $nos_parteners;
-    }
+        if ($request->hasFile('image_path')) {
+            $image = $request->file('image_path');
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = base_path('public/uploads/partners/');
+            $image->move($destinationPath, $image_name);
+
+                $nos_parteners->partener = $request->partener;
+                $nos_parteners->partener_description = $request->partener_description;
+                $nos_parteners->image_alt = $request->image_alt;
+                $nos_parteners->image_path = 'uploads/partners/'.$image_name;
+
+            $nos_parteners->update();
+            return response()->json([
+                'status' => 200,
+                'message' => 'partener updated successfully',
+            ]);
+
+        }}
+
 
     public function destroy ($id)
     {
-        return NosPartener::destroy($id);
+         NosPartener::destroy($id);
+        return response()->json([
+            'status' => 200,
+            'message' => 'partener deleted successfully',
+        ]);
     }
 }

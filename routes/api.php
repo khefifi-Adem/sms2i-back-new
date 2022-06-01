@@ -43,9 +43,7 @@ use Illuminate\Support\Facades\Route;
     //Auth API
     Route::post('/registerclient', [AuthController::class, 'registerClient']);
     Route::post('/login', [AuthController::class, 'login']);
-
-Route::post('/pages',[PageIntroController::class,'store']);
-
+    Route::post('/pages',[PageIntroController::class,'store']);
 
 
 
@@ -56,6 +54,7 @@ Route::post('/pages',[PageIntroController::class,'store']);
     Route::get('/themes',[ThemeController::class,'index']);
     Route::get('/niveaux',[NiveauController::class,'index']);
     Route::get('/cycle_formations',[CycleFormationController::class,'index']);
+    Route::get('/cycle_formations/{id}',[CycleFormationController::class,'show']);
     Route::get('/card-acceuils',[CardAcceuilController::class,'index']);
     Route::get('/nos_parteners',[NosPartenersController::class,'index']);
     Route::get('/categorie_utilisation',[CategorieUtilisationController::class,'index']);
@@ -88,6 +87,7 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/admin', [AuthController::class, 'registerAdmin']);
     Route::post('/registerindusclient', [AuthController::class, 'registerIndusClient']);
     Route::post('/registeradmin', [AuthController::class, 'registerAdmin']);
+    Route::put('/modifier_passe/{id}', [AuthController::class, 'updatePassword']);
     Route::get('/clients', [AuthController::class, 'indexClient']);
     Route::get('/clients-indus', [AuthController::class, 'indexClientIndus']);
     Route::get('/admin', [AuthController::class, 'indexAdmin']);
@@ -118,9 +118,11 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::get('/demande_cycle/{id}',[DemandeCycleController::class, 'show']);
     Route::get('/cycle_indus',[CycleFormationIndusController::class,'index']);
     Route::get('/cycle_indus/{id}',[CycleFormationIndusController::class, 'show']);
+    Route::get('/cycle_user/{id}',[CycleFormationIndusController::class, 'showUser']);
 
 
-
+    //Projects API
+    Route::get('/project_user/{id}',[ProjectController::class, 'showClientsProject']);
 
 
 
@@ -155,9 +157,10 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
 
 
     //Update API
-    Route::post('/card-acceuils-update/{id}',[CardAcceuilController::class,'update']);
+    Route::put('/card-acceuils-update/{id}',[CardAcceuilController::class,'update']);
+    Route::put('/card-services-update/{id}',[CardEtapeController::class,'update']);
+    Route::post('/cycle_formations/{id}',[CycleFormationController::class,'update']);
     Route::post('/pages/{id}',[PageIntroController::class, 'update']);
-    Route::post('/card-services-update/{id}',[CardEtapeController::class,'update']);
     Route::post('/services/{id}',[ServiceController::class,'update']);
     Route::post('/files/{id}',[FilesController::class, 'update']);
     Route::post('/details_files/{id}',[DetailsFileController::class, 'update']);
@@ -168,7 +171,6 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/domaines/{id}',[DomaineController::class, 'update']);
     Route::post('/themes/{id}',[ThemeController::class, 'update']);
     Route::post('/niveaux/{id}',[NiveauController::class,'update']);
-    Route::post('/cycle_formations/{id}',[CycleFormationController::class,'update']);
     Route::post('/inscriptions/{id}',[InscriptionController::class,'update']);
     Route::post('/inscriptionsindus/{id}',[InscriptionIndusController::class,'update']);
     Route::post('/nos_parteners/{id}',[NosPartenersController::class,'update']);

@@ -40,8 +40,8 @@ class CardEtapeController extends Controller
         $card = Card_etape::find($id);
         $card->update($request->all());
         return response()->json([
-            'status' => 200,
-            'message' => "card updated successfully",
+            'status'=> 200,
+            'message'=> "updated successfully"
         ]);
     }
 
