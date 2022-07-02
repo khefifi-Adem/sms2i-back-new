@@ -57,7 +57,11 @@ class DomaineController extends Controller
 
     public function destroy ($id)
     {
-        return Domaine::destroy($id);
+      Domaine::destroy($id);
+        return response()->json([
+            'status' => 200,
+            'message' => "domain deleted successfully",
+        ]);
     }
 
     public function indexDomaine($id)

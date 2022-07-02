@@ -76,7 +76,7 @@ class AuthController extends Controller
             'type' => 'formateur',
             'password' => bcrypt('Azerty1212'),
         ]);
-        $user->notify(new RegisterNotif($password));
+        $user->notify(new RegisterNotif('Azerty1212'));
 
 
         return response()->json( [
@@ -112,7 +112,7 @@ class AuthController extends Controller
             'type' => 'admin',
             'password' => bcrypt('Azerty1212'),
         ]);
-        $user->notify(new RegisterNotif($password));
+        $user->notify(new RegisterNotif('Azerty1212'));
 
 
         return response()->json( [
@@ -148,7 +148,7 @@ class AuthController extends Controller
             'type' => 'client_indus',
             'password' => bcrypt('Azerty1212'),
         ]);
-        $user->notify(new RegisterNotif($password));
+        $user->notify(new RegisterNotif('Azerty1212'));
 
         return response()->json([
             'status' => 200,

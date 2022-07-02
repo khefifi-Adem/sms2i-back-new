@@ -47,7 +47,11 @@ class ThemeController extends Controller
 
     public function destroy ($id)
     {
-        return Theme::destroy($id);
+        Theme::destroy($id);
+        return response()->json([
+            'status' => 200,
+            'message' => "theme deleted successfully",
+        ]);
     }
 
     public function indexTheme($id)

@@ -43,7 +43,6 @@ use Illuminate\Support\Facades\Route;
     //Auth API
     Route::post('/registerclient', [AuthController::class, 'registerClient']);
     Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/pages',[PageIntroController::class,'store']);
 
 
 
@@ -212,5 +211,6 @@ Route::group(['middleware' => ['auth:sanctum']],function (){
     Route::post('/cycle_formations',[CycleFormationController::class,'store']);
     Route::post('/inscriptions',[InscriptionController::class,'store']);
     Route::post('/inscriptionsindus',[InscriptionIndusController::class,'store']);
+    Route::post('/pages',[PageIntroController::class,'store']);
 
 });
